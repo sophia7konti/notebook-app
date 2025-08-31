@@ -19,7 +19,7 @@ pids
 coverage/
 *.lcov
 
-# Build
+# Build folders
 dist/
 build/
 
@@ -36,18 +36,31 @@ build/
 *.swp
 *.swo
 
-# OS files
+# OS-specific files
 .DS_Store
 Thumbs.db
 
-# React
+# React frontend
 frontend/node_modules/
 frontend/build/
 
 # Backend
 backend/node_modules/
 
-# Misc
+# Misc temporary files
 *.bak
 *.tmp
 
+# Babel & Jest configs (optional)
+babel.config.js
+babel.config.cjs
+frontend/.babelrc
+frontend/babel.config.cjs
+frontend/babel.config.json
+frontend/jest.config.cjs
+frontend/jest.config.js
+backend/.babelrc
+backend/babel.config.js
+backend/jest.config.cjs
+backend/jest.config.js
+jest.config.js
