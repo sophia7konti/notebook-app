@@ -1,27 +1,28 @@
-const request = require('supertest');
-const express = require('express');
-const usersRoutes = require('../routes/users');
+import request from "supertest";
+import express from "express";
+import usersRoutes from "../routes/users.js";
 
 const app = express();
 app.use(express.json());
-app.use('/api/users', usersRoutes);
+app.use("/api/users", usersRoutes);
 
-describe('User routes', () => {
-  it('should register a new user', async () => {
-    const res = await request(app).post('/api/users/register').send({
+describe("User routes", () => {
+  it("should register a new user", async () => {
+    const res = await request(app).post("/api/users/register").send({
       username: `testuser${Date.now()}`,
-      password: 'password123'
+      password: "password123"
     });
     expect(res.statusCode).toBe(201);
-    expect(res.body.message).toBe('User created');
+    expect(res.body.message).toBe("User created");
   });
 
-  it('should fail login with wrong credentials', async () => {
-    const res = await request(app).post('/api/users/login').send({
-      username: 'nonexistentuser',
-      password: 'wrongpass'
+  it("should fail login with wrong credentials", async () => {
+    const res = await request(app).post("/api/users/login").send({
+      username: "nonexistentuser",
+      password: "wrongpass"
     });
     expect(res.statusCode).toBe(400);
-    expect(res.body.message).toBe('Invalid credentials');
+    expect(res.body.message).toBe("Invalid credentials");
   });
 });
+

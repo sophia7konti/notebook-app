@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NoteForm from "./components2/NoteForm";
+import NoteForm from "./components2/NoteForm.js";
 
 function App() {
   const [notes, setNotes] = useState([]);

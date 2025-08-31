@@ -1,35 +1,33 @@
-const request = require("supertest");
-const express = require("express");
+import request from "supertest";
+import express from "express";
+import notesRoutes from "../routes/notes.js";
 
 const app = express();
 app.use(express.json());
+app.use("/api/notes", notesRoutes);
 
-// Mock notes data
-let notes = [{ id: 1, title: "Test Note", content: "This is a test" }];
+describe("Notes routes", () => {
+  let noteId;
 
-// Routes
-app.get("/api/notes", (req, res) => res.status(200).json(notes));
+  it("should create a new note", async () => {
+    const res = await request(app).post("/api/notes").send({
+      title: `Test Note ${Date.now()}`,
+      content: "This is a test note",
+    });
+    expect(res.statusCode).toBe(201);
+    expect(res.body.title).toMatch(/Test Note/);
+    noteId = res.body._id;
+  });
 
-app.post("/api/notes", (req, res) => {
-  const { title, content } = req.body;
-  const newNote = { id: notes.length + 1, title, content };
-  notes.push(newNote);
-  res.status(201).json(newNote);
-});
-
-// Tests
-describe("Backend API Tests", () => {
-  it("GET /api/notes returns 200 and array", async () => {
+  it("should get all notes", async () => {
     const res = await request(app).get("/api/notes");
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
   });
 
-  it("POST /api/notes creates a new note", async () => {
-    const res = await request(app)
-      .post("/api/notes")
-      .send({ title: "New Note", content: "Content" });
-    expect(res.statusCode).toBe(201);
-    expect(res.body.title).toBe("New Note");
+  it("should delete a note", async () => {
+    const res = await request(app).delete(`/api/notes/${noteId}`);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.message).toBe("Note deleted");
   });
 });
