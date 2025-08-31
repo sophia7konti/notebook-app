@@ -67,12 +67,9 @@ npm start
 ```
 - Τρέχει συνήθως στη θύρα 5000.
 - Logger (morgan) εμφανίζει όλα τα αιτήματα στο console.
-- Swagger τεκμηρίωση:
-- Άνοιξε στο browser: http://localhost:5000/api-docs
-
 
 5. Swagger τεκμηρίωση:
-- Άνοιξε στο browser: [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
+- Άνοιξε στο browser: [http://localhost:5000/api-docs]
 
 6. Εκτέλεση δοκιμών:
 ```bash
