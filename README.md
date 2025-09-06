@@ -1,142 +1,102 @@
 # Notebook App
 
-Αυτή η εφαρμογή είναι ένα πλήρες σύστημα σημειώσεων που χρησιμοποιεί το **MERN stack** (MongoDB, Express, React, Node.js). Επιτρέπει στους χρήστες να δημιουργούν, να επεξεργάζονται και να διαγράφουν σημειώσεις μέσω ενός φιλικού προς το χρήστη περιβάλλοντος.
-
----
-
-## Τεχνολογίες
-
-- **Frontend:** React, React Router, Axios, @testing-library/react, Jest
-- **Backend:** Node.js, Express, MongoDB, Mongoose, Morgan, Swagger, Cors, Dotenv, Jest, Supertest
-- **Database:** MongoDB
-- **Testing:** Jest, React Testing Library, Supertest
-- **Transpilation:** Babel (ES Modules υποστήριξη)
+Ένα απλό full-stack project για τη διαχείριση σημειώσεων με **React**, **Node.js**, **Express** και **MongoDB**.
 
 ---
 
 ## Δομή φακέλων
 
-```
 notebook-app/
-├── backend/ # Backend εφαρμογή (Node.js/Express)
-│ ├── controllers/ # Λογική διαχείρισης αιτημάτων
-│ ├── models/ # Μοντέλα MongoDB
-│ ├── routes/ # API routes
-│ ├── test/ # Unit & integration tests (Jest + Supertest)
-│ ├── server.js # Είσοδος του server
-│ ├── package.json # Εξαρτήσεις και scripts
-│ └── babel.config.js # Babel config για ES Modules
-├── frontend/ # Frontend εφαρμογή (React)
+│
+├── backend/
+│ ├── controllers/
+│ │ └── noteController.js
+│ ├── models/
+│ │ └── noteModel.js
+│ ├── routes/
+│ │ └── noteRoutes.js
+│ ├── tests/
+│ │ ├── note.test.js
+│ │ └── user.test.js
+│ ├── .env
+│ ├── package.json
+│ ├── server.js
+│ └── dist/ # Δημιουργείται μετά το build
+│
+├── frontend/
 │ ├── src/
-│ │ ├── components/ # React components
-│ │ ├── components2/ # Σύνθετα components
-│ │ ├── App.js # Κύριο component
-│ │ └── index.js # Είσοδος του React
-│ ├── package.json # Εξαρτήσεις και scripts
-│ └── babel.config.cjs # Babel config για ES Modules
+│ │ ├── components/
+│ │ ├── App.jsx
+│ │ ├── index.css
+│ │ └── index.js
+│ ├── public/
+│ ├── package.json
+│ ├── tailwind.config.js
+│ └── postcss.config.js
+│
 ├── .gitignore
-└── README.md # Αυτό το αρχείο
-```
+└── README.md
+
 
 ---
 
 ## Backend
 
-### Βήματα εγκατάστασης
+### Περιγραφή
+Το backend είναι φτιαγμένο με **Node.js** και **Express**, χρησιμοποιεί **MongoDB** για την αποθήκευση δεδομένων και παρέχει REST API για τις σημειώσεις.
 
-1. Μετάβαση στον φάκελο backend:
+### Περιβάλλον
+Δημιουργήστε ένα `.env` αρχείο στον φάκελο `backend/`:
+
+MONGO_URI=your_mongodb_connection_string
+PORT=5000
+JWT_SECRET=mysupersecret
+
+
+### Εγκατάσταση & Εκτέλεση
 ```bash
 cd backend
-```
-
-2. Εγκατάσταση εξαρτήσεων:
-```bash
 npm install
-```
+npm run dev       # για development με nodemon
+npm run build     # μεταγλώττιση με Babel
+npm start         # εκτέλεση του build
 
-3. Δημιουργία αρχείου `.env` με τις παρακάτω μεταβλητές:
-```env
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=mysupersecret
-PORT=5000
-```
-
-4. Εκκίνηση του server:
-```bash
-npm start
-```
-- Τρέχει συνήθως στη θύρα 5000.
-- Logger (morgan) εμφανίζει όλα τα αιτήματα στο console.
-- Swagger τεκμηρίωση:
-- Άνοιξε στο browser: http://localhost:5000/api-docs
-
-
-5. Swagger τεκμηρίωση:
-- Άνοιξε στο browser: [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
-
-6. Εκτέλεση δοκιμών:
-```bash
+Δοκιμές
 npm test
-```
-- Backend χρησιμοποιεί Jest + Supertest για unit και integration tests.
-
-### Σημειώσεις
-- Ο backend τρέχει συνήθως στη θύρα 5000.
-- Logger (morgan) εμφανίζει όλα τα αιτήματα στο console.
-- Swagger επιτρέπει δοκιμή των endpoints μέσω browser.
-
----
 
 ## Frontend
+### Περιγραφή
 
-### Βήματα εγκατάστασης
+Το frontend είναι φτιαγμένο με React και TailwindCSS.
 
-1. Μετάβαση στον φάκελο frontend:
-```bash
+### Εγκατάσταση & Εκτέλεση
 cd frontend
-```
-
-2. Εγκατάσταση εξαρτήσεων:
-```bash
 npm install
-```
-
-3. Εκκίνηση της εφαρμογής:
-```bash
 npm start
-```
-- Τρέχει συνήθως στη θύρα 3000.
-- Αν υπάρχει σύγκρουση θυρών, το React θα ζητήσει αλλαγή θύρας.
 
-4. Εκτέλεση δοκιμών:
-```bash
-npm test
-```
-- Frontend χρησιμοποιεί Jest + React Testing Library για component tests.
+## TailwindCSS
 
-### Σημειώσεις
-- Frontend χρησιμοποιεί React components για διαχείριση σημειώσεων.
-- Υποστηρίζει add, delete, list σημειώσεων.
-- Testing γίνεται με **@testing-library/react**.
+Για να ξεκινήσετε με TailwindCSS:
+npx tailwindcss init -p
+Αυτό δημιουργεί τα tailwind.config.js και postcss.config.js.
 
----
-## Babel
+## API Endpoints (Backend)
+Σημειώσεις
+GET /notes — Παίρνει όλες τις σημειώσεις
+POST /notes — Προσθέτει μια νέα σημείωση (απαιτεί text στο body)
+DELETE /notes/:id — Διαγράφει μια σημείωση με βάση το ID
 
-- Προστέθηκαν αρχεία διαμόρφωσης Babel σε backend και frontend.
-- Υποστήριξη ES Modules και σύγχρονου JavaScript.
-- Backend: babel.config.js
-- Frontend: babel.config.cjs / babel.config.json
+## Τεχνολογίες
 
-## GitHub
+Frontend: React, TailwindCSS, CSS
 
-Για να ανεβάσεις το project:
-```bash
-git add .
-git commit -m "Initial commit"  "Ενημέρωση backend/frontend, προσθήκη Babel & Jest configs"
-git push -u origin main
-```
-## Σημειώσεις
-- Backend τρέχει στη θύρα 5000, frontend στη θύρα 3000.
-- Έχουν προστεθεί αρχεία Babel και Jest για καλύτερη συμβατότητα ES Modules και testing.
-- Το project υποστηρίζει CRUD λειτουργίες για σημειώσεις μέσω REST API και React components.
+Backend: Node.js, Express, MongoDB, Mongoose
 
+Testing: Jest, Supertest
+
+Dev Tools: Babel, Nodemon, Postman
+
+Σημειώσεις
+Χρησιμοποιήστε Node >= 22 για πλήρη υποστήριξη ES Modules.
+Ο server ακούει στη θύρα που καθορίζεται στο .env ή στη 5000 by default.
+Σιγουρευτείτε ότι η MongoDB URI είναι σωστή πριν τρέξετε το backend.

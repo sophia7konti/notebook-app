@@ -1,66 +1,49 @@
+# ========================
 # Node.js dependencies
+# ========================
 node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# ========================
+# Build / Dist folders
+# ========================
+dist/
+frontend/build/
+backend/dist/
+
+# ========================
+# Environment variables
+# ========================
+.env
+frontend/.env
+backend/.env
+
+# ========================
+# Logs
+# ========================
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# Logs
-logs
-*.log
-logs/*.log
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage
-coverage/
-*.lcov
-
-# Build folders
-dist/
-build/
-
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# IDE / Editor
-.vscode/
-.idea/
-*.swp
-*.swo
-
+# ========================
 # OS-specific files
+# ========================
 .DS_Store
 Thumbs.db
 
-# React frontend
-frontend/node_modules/
-frontend/build/
+# ========================
+# IDE / Editor files
+# ========================
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
 
-# Backend
-backend/node_modules/
+# ========================
+# Misc
+# ========================
+*.local
+*.swp
 
-# Misc temporary files
-*.bak
-*.tmp
-
-# Babel & Jest configs (optional)
-babel.config.js
-babel.config.cjs
-frontend/.babelrc
-frontend/babel.config.cjs
-frontend/babel.config.json
-frontend/jest.config.cjs
-frontend/jest.config.js
-backend/.babelrc
-backend/babel.config.js
-backend/jest.config.cjs
-backend/jest.config.js
-jest.config.js

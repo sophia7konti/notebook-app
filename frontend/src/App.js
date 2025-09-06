@@ -1,44 +1,39 @@
 import React, { useState } from "react";
-import NoteForm from "./components2/NoteForm.js";
 
 function App() {
+  const [note, setNote] = useState("");
   const [notes, setNotes] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
 
-  const handleLogin = () => {
-    setLoggedIn(true);
+  const addNote = () => {
+    if (note.trim() === "") return;
+    setNotes([...notes, note]);
+    setNote("");
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <header className="mb-6">
-        <h1 className="text-3xl font-bold text-center">Notebook App</h1>
-      </header>
-
-      <div className="flex flex-col items-center">
-        {!loggedIn ? (
-          <button
-            onClick={handleLogin}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+    <div className="container mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6 text-center">Notebook App</h1>
+      <div className="flex mb-6 gap-2">
+        <input
+          className="form-control flex-grow"
+          type="text"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          placeholder="Write your note..."
+        />
+        <button className="btn btn-primary" onClick={addNote}>
+          Add
+        </button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {notes.map((n, i) => (
+          <div
+            key={i}
+            className="card shadow-lg rounded-xl p-4 hover:scale-105 transition-transform"
           >
-            Login
-          </button>
-        ) : (
-          <>
-            <NoteForm setNotes={setNotes} />
-            <div className="mt-4 w-full max-w-md">
-              {notes.map((note) => (
-                <div
-                  key={note.id}
-                  className="p-4 mb-2 bg-white rounded shadow"
-                >
-                  <h3 className="font-bold">{note.title}</h3>
-                  <p>{note.content}</p>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+            {n}
+          </div>
+        ))}
       </div>
     </div>
   );
