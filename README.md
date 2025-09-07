@@ -28,41 +28,57 @@
 ## Δομή φακέλων
 
 notebook-app/
-├── backend/
-│   ├── controllers/
-│   │   ├── userController.js
-│   │   └── noteController.js
-│   ├── models/
-│   │   ├── User.js
-│   │   └── noteModel.js 
-│   ├── routes/
-│   │   ├── userRoutes.js
-│   │   └── noteRoutes.js
-│   ├── middleware/
-│   │   ├── authMiddleware.js
-│   │   └── errorMiddleware.js
-│   ├── tests/
-│   │   ├── user.test.js
-│   │   └── note.test.js
-│   ├── utils/
-│   │   └── generateToken.js
-│   ├── package.json
-│   ├── server.js
-│   ├── .env
-│   ├── .babelrc           
-│   └── babel.config.js    
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── App.js
-│   │   └── index.js
-│   ├── public/
-│   │   └── index.html
-│   ├── package.json
-│   └── .env
-├── README.md
-└── .gitignore
+├─ backend/
+│  ├─ .babelrc
+│  ├─ .env
+│  ├─ .gitignore
+│  ├─ babel.config.js
+│  ├─ package.json
+│  ├─ package-lock.json
+│  ├─ server.js
+│  ├─ controllers/
+│  │  ├─ noteController.js
+│  │  └─ userController.js
+│  ├─ dist/
+│  │  ├─ babel.config.js
+│  │  └─ server.js
+│  ├─ logs/
+│  │  └─ app.log
+│  ├─ middleware/
+│  │  ├─ authMiddleware.js
+│  │  └─ errorMiddleware.js
+│  ├─ models/
+│  │  ├─ noteModel.js
+│  │  └─ User.js
+│  ├─ routes/
+│  │  ├─ noteRoutes.js
+│  │  └─ userRoutes.js
+│  ├─ swagger/
+│  │  └─ swagger.js
+│  ├─ tests/
+│  │  ├─ note.test.js
+│  │  └─ user.test.js
+│  └─ utils/
+│     └─ generateToken.js
+├─ frontend/
+│  ├─ postcss.config.js
+│  ├─ tailwind.config.js
+│  ├─ README.md
+│  ├─ public/
+│  │  ├─ index.html
+│  │  ├─ favicon.ico
+│  │  └─ manifest.json
+│  └─ src/
+│     ├─ App.css
+│     ├─ App.js
+│     ├─ App.test.js
+│     ├─ index.css
+│     ├─ index.js
+│     ├─ logo.svg
+│     ├─ reportWebVitals.js
+│     └─ setupTests.js
+├─ node_modules/ (περιεχόμενο αφαιρέθηκε για συντομία)
+└─ README.md
 
 ---
 
