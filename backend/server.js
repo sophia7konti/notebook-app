@@ -1,29 +1,39 @@
 import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
 import dotenv from "dotenv";
+import cors from "cors";
+import mongoose from "mongoose";
+
+import userRoutes from "./routes/userRoutes.js";
 import noteRoutes from "./routes/noteRoutes.js";
+import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI;
 
-// Middlewares
+// Middleware
 app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/notes", noteRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/notes", noteRoutes);
 
-// Connect to MongoDB and start server
+// Error handling
+app.use(notFound);
+app.use(errorHandler);
+
+// MongoDB Connection
 mongoose
-  .connect(MONGO_URI)
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB Connected");
-    app.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   })
-  .catch((err) => console.error(err));
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1);
+  });
 
-export default app; // Αυτό χρειάζεται για τα tests (Jest/Supertest)
+export default app; // Για τα tests

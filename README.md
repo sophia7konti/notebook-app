@@ -1,42 +1,68 @@
 # Notebook App
 
-Ένα απλό full-stack project για τη διαχείριση σημειώσεων με **React**, **Node.js**, **Express** και **MongoDB**.
+Μια εφαρμογή για τη δημιουργία, ανάγνωση, ενημέρωση και διαγραφή σημειώσεων (CRUD) με backend σε Node.js/Express και MongoDB, και frontend σε React.
+
+## Περιεχόμενα
+
+- [Τεχνολογίες](#τεχνολογίες)
+- [Δομή Project](#δομή-project)
+- [Ρύθμιση Περιβάλλοντος](#ρύθμιση-περιβάλλοντος)
+- [Εκτέλεση Backend](#εκτέλεση-backend)
+- [Εκτέλεση Frontend](#εκτέλεση-frontend)
+- [Τρέξιμο Tests](#τρέξιμο-tests)
+- [API Endpoints](#api-endpoints)
+
+---
+
+## Τεχνολογίες
+
+- Node.js
+- Express.js
+- MongoDB / Mongoose
+- JWT Authentication
+- React.js (Frontend)
+- Tailwind CSS
 
 ---
 
 ## Δομή φακέλων
 
 notebook-app/
-│
 ├── backend/
-│ ├── controllers/
-│ │ └── noteController.js
-│ ├── models/
-│ │ └── noteModel.js
-│ ├── routes/
-│ │ └── noteRoutes.js
-│ ├── tests/
-│ │ ├── note.test.js
-│ │ └── user.test.js
-│ ├── .env
-│ ├── package.json
-│ ├── server.js
-│ └── dist/ # Δημιουργείται μετά το build
-│
+│   ├── controllers/
+│   │   ├── userController.js
+│   │   └── noteController.js
+│   ├── models/
+│   │   ├── User.js
+│   │   └── noteModel.js 
+│   ├── routes/
+│   │   ├── userRoutes.js
+│   │   └── noteRoutes.js
+│   ├── middleware/
+│   │   ├── authMiddleware.js
+│   │   └── errorMiddleware.js
+│   ├── tests/
+│   │   ├── user.test.js
+│   │   └── note.test.js
+│   ├── utils/
+│   │   └── generateToken.js
+│   ├── package.json
+│   ├── server.js
+│   ├── .env
+│   ├── .babelrc           
+│   └── babel.config.js    
 ├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── App.jsx
-│ │ ├── index.css
-│ │ └── index.js
-│ ├── public/
-│ ├── package.json
-│ ├── tailwind.config.js
-│ └── postcss.config.js
-│
-├── .gitignore
-└── README.md
-
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── public/
+│   │   └── index.html
+│   ├── package.json
+│   └── .env
+├── README.md
+└── .gitignore
 
 ---
 
@@ -48,9 +74,8 @@ notebook-app/
 ### Περιβάλλον
 Δημιουργήστε ένα `.env` αρχείο στον φάκελο `backend/`:
 
-MONGO_URI=your_mongodb_connection_string
-PORT=5000
-JWT_SECRET=mysupersecret
+MONGO_URI=mongodb+srv://sophiekonti:ySR4i2Yt9E4rKOIF@cluster0.3jd3yfv.mongodb.net/notebook?retryWrites=true&w=majority PORT=5000 
+JWT_SECRET=mysupersecret     
 
 
 ### Εγκατάσταση & Εκτέλεση
@@ -86,14 +111,15 @@ GET /notes — Παίρνει όλες τις σημειώσεις
 POST /notes — Προσθέτει μια νέα σημείωση (απαιτεί text στο body)
 DELETE /notes/:id — Διαγράφει μια σημείωση με βάση το ID
 
+Users
+POST /users/register — Δημιουργία νέου χρήστη
+POST /users/login — Σύνδεση χρήστη
+
 ## Τεχνολογίες
 
 Frontend: React, TailwindCSS, CSS
-
 Backend: Node.js, Express, MongoDB, Mongoose
-
 Testing: Jest, Supertest
-
 Dev Tools: Babel, Nodemon, Postman
 
 Σημειώσεις

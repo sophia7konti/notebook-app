@@ -1,50 +1,56 @@
 import request from "supertest";
-import app from "../server.js";
 import mongoose from "mongoose";
-import Note from "../models/Note.js";
-import User from "../models/User.js";
 import dotenv from "dotenv";
+import app from "../server.js";
+import Note from "../models/noteModel.js";
+
 dotenv.config();
 
-let token;
-
 beforeAll(async () => {
-  await mongoose.connect(process.env.MONGO_URI);
-  await Note.deleteMany({});
-  await User.deleteMany({});
-
-  // create user and get token
-  const res = await request(app)
-    .post("/api/users/register")
-    .send({ name: "NoteUser", email: "noteuser@example.com", password: "123456" });
-
-  token = res.body.token;
+  // Σύνδεση με τη βάση δοκιμών
+  await mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 });
 
 afterAll(async () => {
-  await Note.deleteMany({});
-  await User.deleteMany({});
   await mongoose.connection.close();
 });
 
+afterEach(async () => {
+  await Note.deleteMany(); // καθάρισμα μετά από κάθε test
+});
+
 describe("Notes API", () => {
-  it("creates a note", async () => {
+  it("δημιουργεί νέα σημείωση", async () => {
     const res = await request(app)
-      .post("/api/notes")
-      .set("Authorization", `Bearer ${token}`)
-      .send({ title: "Test Note", content: "Content" });
+      .post("/notes")
+      .send({ title: "Test Note", content: "This is a test note" });
 
     expect(res.statusCode).toBe(201);
     expect(res.body.title).toBe("Test Note");
+    expect(res.body.content).toBe("This is a test note");
   });
 
-  it("gets notes", async () => {
-    const res = await request(app)
-      .get("/api/notes")
-      .set("Authorization", `Bearer ${token}`);
+  it("επιστρέφει όλες τις σημειώσεις", async () => {
+    await Note.create({ title: "Note 1", content: "Content 1" });
+    await Note.create({ title: "Note 2", content: "Content 2" });
+
+    const res = await request(app).get("/notes");
 
     expect(res.statusCode).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.length).toBe(2);
+    expect(res.body[0]).toHaveProperty("title");
+  });
+
+  it("διαγράφει σημείωση", async () => {
+    const note = await Note.create({ title: "ToDelete", content: "Delete me" });
+
+    const res = await request(app).delete(`/notes/${note._id}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.message).toBe("Note deleted");
   });
 });
 

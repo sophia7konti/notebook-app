@@ -1,37 +1,46 @@
 import Note from "../models/noteModel.js";
 
-// Πάρε όλες τις σημειώσεις
-export const getNotes = async (req, res) => {
+// 📌 Get all notes
+const getNotes = async (req, res) => {
   try {
-    const notes = await Note.find();
+    const notes = await Note.find({ user: req.user.id });
     res.json(notes);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-// Πρόσθεσε μια νέα σημείωση
-export const addNote = async (req, res) => {
-  const { text } = req.body;
-  if (!text) return res.status(400).json({ message: "Το text είναι απαραίτητο." });
-
-  const note = new Note({ text });
-
+// 📌 Add a new note
+const addNote = async (req, res) => {
   try {
-    const savedNote = await note.save();
-    res.status(201).json(savedNote);
+    const note = new Note({
+      title: req.body.title,
+      content: req.body.content,
+      user: req.user.id,
+    });
+
+    const createdNote = await note.save();
+    res.status(201).json(createdNote);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+// 📌 Delete a note
+const deleteNote = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+
+    if (note.user.toString() !== req.user.id) {
+      return res.status(401).json({ message: "Not authorized" });
+    }
+
+    await note.deleteOne();
+    res.json({ message: "Note removed" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-// Διαγραφή σημείωσης
-export const deleteNote = async (req, res) => {
-  try {
-    const note = await Note.findByIdAndDelete(req.params.id);
-    if (!note) return res.status(404).json({ message: "Η σημείωση δεν βρέθηκε" });
-    res.json({ message: "Η σημείωση διαγράφηκε" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+// ✅ Proper export
+export { getNotes, addNote, deleteNote };
