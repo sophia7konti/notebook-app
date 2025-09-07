@@ -90,7 +90,7 @@ notebook-app/
 ### Περιβάλλον
 Δημιουργήστε ένα `.env` αρχείο στον φάκελο `backend/`:
 
-MONGO_URI=mongodb+srv://sophiekonti:ySR4i2Yt9E4rKOIF@cluster0.3jd3yfv.mongodb.net/notebook?retryWrites=true&w=majority PORT=5000 
+MONGO_URI=mongodb+srv://username:password@cluster0.3jd3yfv.mongodb.net/notebook?retryWrites=true&w=majority PORT=5000 
 JWT_SECRET=mysupersecret     
 
 
